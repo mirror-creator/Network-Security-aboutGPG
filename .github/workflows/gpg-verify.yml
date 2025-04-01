@@ -13,13 +13,9 @@ jobs:
         run: |
           mkdir -p ~/.gnupg
           chmod 700 ~/.gnupg
-
       - name: Import GPG Public Key
         run: |
           echo "${{ secrets.GPG_PUBLIC_KEY }}" | gpg --import
-        env:
-          GPG_PUBLIC_KEY: ${{ secrets.GPG_PUBLIC_KEY }}
-
       - name: Verify commit signature
         run: |
           GPG_TTY=$(tty) git log --show-signature -1
