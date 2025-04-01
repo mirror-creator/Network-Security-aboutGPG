@@ -22,4 +22,12 @@ jobs:
 
       - name: Verify commit signature
         run: |
-          git log --show-signature -1
+          GPG_TTY=$(tty) git log --show-signature -1
+        env:
+          GPG_TTY: ${{ secrets.GPG_PUBLIC_KEY }}
+
+      - name: Require signed commits
+        run: |
+          git config --global commit.gpgSign true
+
+
